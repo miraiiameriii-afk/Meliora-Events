@@ -1,33 +1,35 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <title>Meliora Events</title>
     <style>
         html, body {
             height: 100%;
             margin: 0;
+            overflow: hidden; /* prevents scrolling if not needed */
             font-family: "Times New Roman", serif;
-            overflow: hidden; /* hides scrollbars if video overflows */
-            background: black; /* fallback if video doesn't load */
         }
 
-        /* 🎥 Background Video */
-        video#bg-video {
+        /* ✅ Background video setup */
+        #bg-video {
             position: fixed;
-            right: 0;
-            bottom: 0;
+            top: 0;
+            left: 0;
             min-width: 100%;
             min-height: 100%;
-            object-fit: cover; /* fills the screen */
-            z-index: -1; /* behind all elements */
+            width: auto;
+            height: auto;
+            z-index: -1; /* stays behind everything */
+            object-fit: cover; /* keeps video centered and proportional */
         }
 
-        /* 🟡 Navigation Bar */
+        /* ✅ Navbar */
         .navbar {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            background-color: rgba(255, 215, 0, 0.9); /* transparent gold */
+            background-color: gold;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -48,17 +50,18 @@
         .navbar a:hover {
             color: white;
         }
+
     </style>
 </head>
 <body>
 
-    <!-- 🎬 Background Video -->
+    <!-- ✅ Background Video -->
     <video autoplay muted loop id="bg-video">
         <source src="Melioravid.mp4" type="video/mp4">
         Your browser does not support the video tag.
     </video>
 
-    <!-- 🟡 Navigation Bar -->
+    <!-- ✅ Navigation Bar -->
     <div class="navbar">
         <a href="#">About Us</a>
         <a href="#">Products</a>
@@ -68,17 +71,3 @@
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
