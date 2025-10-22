@@ -17,7 +17,59 @@
             bottom: 0;
             min-width: 100%;
             min-height: 100%;
-            object-fit: cover; /* fills the s*
+            object-fit: cover; /* fills the screen */
+            z-index: -1; /* behind all elements */
+        }
+
+        /* 🟡 Navigation Bar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(255, 215, 0, 0.9); /* transparent gold */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 15px 0;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+        }
+
+        .navbar a {
+            color: #3b0000;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 18px;
+            margin: 0 40px;
+            transition: 0.3s;
+        }
+
+        .navbar a:hover {
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 🎬 Background Video -->
+    <video autoplay muted loop id="bg-video">
+        <source src="Melioravid.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <!-- 🟡 Navigation Bar -->
+    <div class="navbar">
+        <a href="#">About Us</a>
+        <a href="#">Products</a>
+        <a href="#">Services</a>
+        <a href="#">Register</a>
+    </div>
+
+</body>
+</html>
+
+
 
 
 
