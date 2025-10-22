@@ -1,73 +1,73 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Meliora Events</title>
-    <style>
-        html, body {
-            height: 100%;
-            margin: 0;
-            overflow: hidden; /* prevents scrolling if not needed */
-            font-family: "Times New Roman", serif;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meliora Events</title>
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+      font-family: "Times New Roman", serif;
+    }
 
-        /* ✅ Background video setup */
-        #bg-video {
-            position: fixed;
-            top: 0;
-            left: 0;
-            min-width: 100%;
-            min-height: 100%;
-            width: auto;
-            height: auto;
-            z-index: -1; /* stays behind everything */
-            object-fit: cover; /* keeps video centered and proportional */
-        }
+    /* ✅ Background video */
+    #bg-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      z-index: -1;
+    }
 
-        /* ✅ Navbar */
-        .navbar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            background-color: gold;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 15px 0;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-            z-index: 1000;
-        }
+    /* ✅ Navbar */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background-color: rgba(255, 215, 0, 0.9); /* slightly transparent gold */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 15px 0;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+      z-index: 10;
+    }
 
-        .navbar a {
-            color: #3b0000;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 18px;
-            margin: 0 40px;
-            transition: 0.3s;
-        }
+    .navbar a {
+      color: #3b0000;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 18px;
+      margin: 0 40px;
+      transition: 0.3s;
+    }
 
-        .navbar a:hover {
-            color: white;
-        }
-
-    </style>
+    .navbar a:hover {
+      color: white;
+    }
+  </style>
 </head>
 <body>
 
-    <!-- ✅ Background Video -->
-    <video autoplay muted loop id="bg-video">
-        <source src="Melioravid.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-    </video>
+  <!-- ✅ Video Background -->
+  <video autoplay muted loop id="bg-video">
+    <source src="Melioravid.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
 
-    <!-- ✅ Navigation Bar -->
-    <div class="navbar">
-        <a href="#">About Us</a>
-        <a href="#">Products</a>
-        <a href="#">Services</a>
-        <a href="#">Register</a>
-    </div>
+  <!-- ✅ Navbar -->
+  <div class="navbar">
+    <a href="#">About Us</a>
+    <a href="#">Products</a>
+    <a href="#">Services</a>
+    <a href="#">Register</a>
+  </div>
 
 </body>
 </html>
+
