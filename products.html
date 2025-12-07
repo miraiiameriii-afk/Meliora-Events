@@ -1,13 +1,45 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Products & Services - Meliora Events</title>
   <style>
-      body {
+    body {
       margin: 0;
       font-family: "Times New Roman", serif;
       background-color: #fffdf5;
     }
+
+    /* ✅ Fixed Navbar overlapping content */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background-color: rgba(255, 215, 0, 0.7); /* slightly transparent gold */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 15px 0;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+      z-index: 10;
+    }
+
+    .navbar a {
+      text-decoration: none;
+      color: #3b0000; /* dark red for contrast */
+      font-weight: bold;
+      font-size: 18px;
+      margin: 0 40px;
+      transition: 0.3s;
+    }
+
+    .navbar a:hover {
+      color: white;
+    }
+
+    /* ✅ Images */
     img {
       width: 100%;
       height: auto;
@@ -19,6 +51,17 @@
 </head>
 <body>
 
+  <!-- ✅ Navbar -->
+  <div class="navbar">
+    <a href="index.html">Home</a>
+    <a href="about.html">About Us</a>
+    <a href="products.html">Products & Services</a>
+    <a href="menu.html">Menu</a>
+    <a href="furnitures.html">Furnitures</a>
+    <a href="#" id="registerBtn">Register</a>
+  </div>
+
+  <!-- ✅ Page Content -->
   <img src="Product&Services.jpg" alt="Products and Services">
 
 </body>
