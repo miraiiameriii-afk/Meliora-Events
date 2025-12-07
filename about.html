@@ -1,34 +1,35 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>About Us - Meliora Events</title>
   <style>
-      body {
+    body {
       margin: 0;
       font-family: "Times New Roman", serif;
       background-color: #fffdf5;
     }
-    img {
-      width: 100%;
-      height: auto;
-      display: block;
-      margin: 0;
-      padding: 0;
+
+    /* ✅ Navbar styles */
+    .navbar {
+      position: relative; /* not fixed so it doesn't cover images */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px 0;
+      background: rgba(0, 0, 0, 0); /* fully transparent */
+      z-index: 10;
     }
-  </style>
-</head>
-<body>
 
-  <img src="Aboutus.jpg" alt="About Meliora Events">
-  <img src="Price.jpg" alt="Pricing">
- 
-  <div class="navbar">
-    <a href="about.html">About Us</a>
-    <a href="products.html">Products & Services</a>
-    <a href="furnitures.html">Furnitures</a>
-    <a href="menu.html">Menu</a>
-    <a id="registerBtn">Register</a>
-  </div>
+    .navbar a {
+      text-decoration: none;
+      color: yellow; /* yellow text */
+      font-family: "Times New Roman", serif;
+      font-weight: bold;
+      font-size: 18px;
+      margin: 0 25px;
+      transition: 0.3s;
+    }
 
-</body>
-</html>
+    .navbar a:
