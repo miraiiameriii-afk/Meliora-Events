@@ -11,27 +11,33 @@
       background-color: #fffdf5;
     }
 
-    /* ✅ Fixed Navbar overlapping content */
+    img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
     .navbar {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
-      background-color: rgba(255, 215, 0, 0.7); /* slightly transparent gold */
+      background-color: rgba(255, 215, 0, 0.9);
       display: flex;
       justify-content: center;
       align-items: center;
       padding: 15px 0;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
       z-index: 10;
     }
 
     .navbar a {
+      color: #3b0000;
       text-decoration: none;
-      color: #3b0000; /* dark red for contrast */
       font-weight: bold;
       font-size: 18px;
       margin: 0 40px;
+      cursor: pointer;
       transition: 0.3s;
     }
 
@@ -39,30 +45,153 @@
       color: white;
     }
 
-    /* ✅ Images */
-    img {
-      width: 100%;
-      height: auto;
-      display: block;
-      margin: 0;
-      padding: 0;
+    /* Register Modal */
+    #registerModal {
+      display: none;
+      position: fixed;
+      top:0;
+      left:0;
+      width:100%;
+      height:100%;
+      background: rgba(0,0,0,0.7);
+      justify-content: center;
+      align-items: center;
+      z-index: 20;
+    }
+
+    #registerModal form {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      width: 300px;
+    }
+
+    #registerModal input {
+      padding: 10px;
+      font-size: 16px;
+    }
+
+    #registerModal button {
+      padding: 10px;
+      background-color: gold;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    #registerModal button:hover {
+      background-color: #ffc107;
+    }
+
+    #registerModal .closeBtn {
+      background: red;
+      color: white;
+    }
+
+    #successMessage {
+      display: none;
+      color: green;
+      font-weight: bold;
+      text-align: center;
     }
   </style>
 </head>
 <body>
 
-  <!-- ✅ Navbar -->
+  <!-- Navbar -->
   <div class="navbar">
     <a href="index.html">Home</a>
     <a href="about.html">About Us</a>
     <a href="products.html">Products & Services</a>
     <a href="menu.html">Menu</a>
-    <a href="#" id="registerBtn">Register</a>
+    <a id="registerBtn">Register</a>
   </div>
 
-  <!-- ✅ Page Content -->
+  <!-- Page Images -->
   <img src="Furnitures1.jpg" alt="Furniture 1">
   <img src="Furnitures2.jpg" alt="Furniture 2">
 
+  <!-- Register Modal -->
+  <div id="registerModal">
+    <form id="registerForm">
+      <h2>Register for Meliora Events</h2>
+      <input type="text" id="name" placeholder="Full Name" required>
+      <input type="email" id="email" placeholder="Email" required>
+      <input type="tel" id="phone" placeholder="Phone Number" required>
+      <button type="submit">Submit</button>
+      <button type="button" class="closeBtn" id="closeModal">Close</button>
+      <p id="successMessage">Registration successful!</p>
+    </form>
+  </div>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyDNtX3_yobuB4mQJDQtCJwuCXXYAwkcf2Y",
+      authDomain: "meliora-events-6e5d4.firebaseapp.com",
+      projectId: "meliora-events-6e5d4",
+      storageBucket: "meliora-events-6e5d4.firebasestorage.app",
+      messagingSenderId: "463743697466",
+      appId: "1:463743697466:web:7a66899af82664f1332b03"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+
+    const registerBtn = document.getElementById("registerBtn");
+    const registerModal = document.getElementById("registerModal");
+    const closeModal = document.getElementById("closeModal");
+    const registerForm = document.getElementById("registerForm");
+    const successMessage = document.getElementById("successMessage");
+
+    registerBtn.addEventListener("click", () => {
+      registerModal.style.display = "flex";
+      successMessage.style.display = "none";
+    });
+
+    closeModal.addEventListener("click", () => registerModal.style.display = "none");
+    window.addEventListener("click", e => { if(e.target === registerModal) registerModal.style.display="none"; });
+
+    registerForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const phone = document.getElementById("phone").value.trim();
+
+      if(!name || !email || !phone) return;
+
+      try {
+        const querySnapshot = await db.collection("registrations")
+          .where("email", "==", email)
+          .get();
+
+        if(!querySnapshot.empty) {
+          alert("This email is already registered.");
+          return;
+        }
+
+        await db.collection("registrations").add({
+          name, email, phone,
+          timestamp: firebase.firestore.FieldValue.serverTimestamp()
+        });
+
+        successMessage.style.display = "block";
+        registerForm.reset();
+      } catch(error) {
+        console.error("Error adding registration:", error);
+        alert("Failed to register. Please try again.");
+      }
+    });
+  </script>
+
 </body>
 </html>
+
