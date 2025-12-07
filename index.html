@@ -12,7 +12,6 @@
       font-family: "Times New Roman", serif;
     }
 
-    /* ✅ Background video */
     #bg-video {
       position: fixed;
       top: 0;
@@ -23,7 +22,6 @@
       z-index: -1;
     }
 
-    /* ✅ Navbar */
     .navbar {
       position: fixed;
       top: 0;
@@ -52,7 +50,6 @@
       color: white;
     }
 
-    /* ✅ Form modal */
     #registerModal {
       display: none;
       position: fixed;
@@ -98,17 +95,23 @@
       background: red;
       color: white;
     }
+
+    #successMessage {
+      display: none;
+      color: green;
+      font-weight: bold;
+      text-align: center;
+      margin-top: 10px;
+    }
   </style>
 </head>
 <body>
 
-  <!-- ✅ Video Background -->
   <video autoplay muted loop id="bg-video">
     <source src="Melioravid.mp4" type="video/mp4">
     Your browser does not support the video tag.
   </video>
 
-  <!-- ✅ Navbar -->
   <div class="navbar">
     <a href="about.html">About Us</a>
     <a href="products.html">Products & Services</a>
@@ -117,7 +120,6 @@
     <a id="registerBtn">Register</a>
   </div>
 
-  <!-- ✅ Register Form Modal -->
   <div id="registerModal">
     <form id="registerForm">
       <h2>Register for Meliora Events</h2>
@@ -126,15 +128,14 @@
       <input type="tel" id="phone" placeholder="Phone Number" required>
       <button type="submit">Submit</button>
       <button type="button" class="closeBtn" id="closeModal">Close</button>
+      <p id="successMessage">Registration successful!</p>
     </form>
   </div>
 
-  <!-- ✅ Firebase SDK (compat version) -->
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 
   <script>
-    // 🔹 Firebase Configuration (your actual config)
     const firebaseConfig = {
       apiKey: "AIzaSyDNtX3_yobuB4mQJDQtCJwuCXXYAwkcf2Y",
       authDomain: "meliora-events-6e5d4.firebaseapp.com",
@@ -147,13 +148,15 @@
     firebase.initializeApp(firebaseConfig);
     const db = firebase.firestore();
 
-    // 🔹 Modal functionality
     const registerBtn = document.getElementById("registerBtn");
     const registerModal = document.getElementById("registerModal");
     const closeModal = document.getElementById("closeModal");
+    const registerForm = document.getElementById("registerForm");
+    const successMessage = document.getElementById("successMessage");
 
     registerBtn.addEventListener("click", () => {
       registerModal.style.display = "flex";
+      successMessage.style.display = "none"; // reset success message
     });
 
     closeModal.addEventListener("click", () => {
@@ -161,39 +164,49 @@
     });
 
     window.addEventListener("click", (e) => {
-      if (e.target === registerModal) {
-        registerModal.style.display = "none";
-      }
+      if (e.target === registerModal) registerModal.style.display = "none";
     });
 
-    // 🔹 Firestore form submission
-    const registerForm = document.getElementById("registerForm");
-
-    registerForm.addEventListener("submit", (e) => {
+    registerForm.addEventListener("submit", async (e) => {
       e.preventDefault();
 
-      const name = document.getElementById("name").value;
-      const email = document.getElementById("email").value;
-      const phone = document.getElementById("phone").value;
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const phone = document.getElementById("phone").value.trim();
 
-      db.collection("registrations").add({
-        name: name,
-        email: email,
-        phone: phone,
-        timestamp: firebase.firestore.FieldValue.serverTimestamp()
-      })
-      .then(() => {
-        alert("Registration successful!");
+      if (!name || !email || !phone) return;
+
+      try {
+        // Check for duplicate email
+        const querySnapshot = await db.collection("registrations")
+          .where("email", "==", email)
+          .get();
+
+        if (!querySnapshot.empty) {
+          alert("This email is already registered.");
+          return;
+        }
+
+        // Add new registration
+        await db.collection("registrations").add({
+          name,
+          email,
+          phone,
+          timestamp: firebase.firestore.FieldValue.serverTimestamp()
+        });
+
+        successMessage.style.display = "block";
         registerForm.reset();
-        registerModal.style.display = "none";
-      })
-      .catch((error) => {
+      } catch (error) {
         console.error("Error adding registration: ", error);
-      });
+        alert("Failed to register. Please try again.");
+      }
     });
   </script>
 </body>
 </html>
+
+
 
 
 
