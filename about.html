@@ -11,13 +11,13 @@
       background-color: #fffdf5;
     }
 
-    /* ✅ Navbar */
+    /* ✅ Fixed Navbar overlapping content */
     .navbar {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
-      background-color: rgba(255, 215, 0, 0.9); /* slightly transparent gold */
+      background-color: rgba(255, 215, 0, 0.7); /* slightly transparent gold */
       display: flex;
       justify-content: center;
       align-items: center;
@@ -28,8 +28,7 @@
 
     .navbar a {
       text-decoration: none;
-      color: #3b0000; /* dark red for contrast on gold */
-      font-family: "Times New Roman", serif;
+      color: #3b0000; /* dark red for contrast */
       font-weight: bold;
       font-size: 18px;
       margin: 0 40px;
@@ -38,11 +37,6 @@
 
     .navbar a:hover {
       color: white;
-    }
-
-    /* ✅ Push content below navbar */
-    .content {
-      margin-top: 80px; /* enough space so navbar doesn't cover images */
     }
 
     /* ✅ Images */
@@ -67,10 +61,9 @@
   </div>
 
   <!-- ✅ Page Content -->
-  <div class="content">
-    <img src="Aboutus.jpg" alt="About Meliora Events">
-    <img src="Price.jpg" alt="Pricing">
-  </div>
+  <img src="Aboutus.jpg" alt="About Meliora Events">
+  <img src="Price.jpg" alt="Pricing">
 
 </body>
 </html>
+
